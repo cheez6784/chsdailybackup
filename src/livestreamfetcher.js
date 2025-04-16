@@ -1,33 +1,54 @@
 const API_KEY = 'AIzaSyA4azAb4CPI2laSiLCLMgXPbeqVaWSeBSo';
 const CHANNEL_ID = 'UCf7fGmk8vxEut9zsY_oFzJQ';
 
-async function getLatestCompletedLivestream() {
-    const searchURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=10&order=date&type=video&key=${API_KEY}`;
-    const searchResponse = await fetch(searchURL);
-    const searchData = await searchResponse.json();
+async function getUploadsPlaylistId() {
+    const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.items[0].contentDetails.relatedPlaylists.uploads;
+}
 
-    const videoIds = searchData.items.map(item => item.id.videoId).join(',');
+async function getRecentUploads(playlistId) {
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=15&key=${API_KEY}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.items.map(item => item.snippet.resourceId.videoId);
+}
 
-    const videosURL = `https://www.googleapis.com/youtube/v3/videos?part=snippet,liveStreamingDetails&id=${videoIds}&key=${API_KEY}`;
-    const videosResponse = await fetch(videosURL);
-    const videosData = await videosResponse.json();
+async function getCompletedLivestream(videoIds) {
+    const ids = videoIds.join(',');
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,liveStreamingDetails&id=${ids}&key=${API_KEY}`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-    const completedLivestreams = videosData.items.filter(video => {
-        return video.liveStreamingDetails &&
-            video.liveStreamingDetails.actualEndTime;
-    });
+    const completed = data.items.filter(v =>
+        v.liveStreamingDetails && v.liveStreamingDetails.actualEndTime
+    );
 
-    if (completedLivestreams.length > 0) {
-        const latest = completedLivestreams[0];
-        const videoId = latest.id;
-        const title = latest.snippet.title;
+    return completed.sort((a, b) =>
+        new Date(b.liveStreamingDetails.actualEndTime) - new Date(a.liveStreamingDetails.actualEndTime)
+    )[0];
+}
 
-        document.getElementById('livestreamembed').innerHTML = `
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-        `;
-    } else {
-        document.getElementById('livestreamembed').innerText = 'No completed livestreams found.';
+async function showLatestCompletedLivestream() {
+    try {
+        const uploadsPlaylistId = await getUploadsPlaylistId();
+        const videoIds = await getRecentUploads(uploadsPlaylistId);
+        const latestStream = await getCompletedLivestream(videoIds);
+
+        if (latestStream) {
+            const videoId = latestStream.id;
+            const title = latestStream.snippet.title;
+            document.getElementById('livestreamembed').innerHTML = `
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+          `;
+        } else { 
+            document.getElementById('livestreamembed').innerText = 'No completed livestreams found.';
+        }
+    } catch (err) {
+        console.error(err);
+        document.getElementById('livestreamembed').innerText = 'Error loading livestream.';
     }
 }
 
-getLatestCompletedLivestream();
+showLatestCompletedLivestream();
