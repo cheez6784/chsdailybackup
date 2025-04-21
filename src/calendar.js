@@ -11,9 +11,12 @@ fetch(url)
     .then(res => res.json())
     .then(data => {
         const container = document.getElementById('schoolday');
+        const container2 = document.getElementById('schooldaymobile');
         container.innerHTML = '';
+        container2.innerHTML = '';
         if (!data.items || data.items.length === 0) {
-            container.innerHTML = '<p>No events today.</p>';
+            container.innerHTML = '<p>No information today</p>';
+            container2.innerHTML = '<p>No information today</p>';
             return;
         }
         data.items.forEach(event => {
@@ -21,9 +24,11 @@ fetch(url)
             div.className = 'event';
             div.textContent = event.summary || 'No Title';
             container.appendChild(div);
+            container2.appendChild(div);
         });
     })
     .catch(err => {
         console.error(err);
-        document.getElementById('events').innerHTML = 'Error loading events.';
+        document.getElementById('schoolday').innerHTML = 'Error loading events.';
+        document.getElementById('schooldaymobile').innerHTML = 'Error loading events.';
     });

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CHS A Daily</title>
-    <link rel="icon" type="image/x-icon" href="img/chslogo.png">
+    <link rel="icon" type="image/x-icon" href="/img/chslogo.png">
 </head>
 <body>
 <div id="preloader">
@@ -11,10 +11,12 @@
 </div>
 <ul class="topheader" id="topheader">
 <div class="logocard" data-tilt data-tilt-scale="1.1" id="logocard">
-    <a href="/"><img src="img/chill_adaily.avif"></a>
+    <a href="/chsdaily/index.html" id="mainbutton"><img src="/img/chill_adaily.avif"></a>
 </div>
 
-<li class="dropdown">
+
+
+    <li class="dropdown" id="li1">
     <span>Announcements</span>
     <div class="dropdown-content">
         <a href="#">A B C Day Schedule</a>
@@ -23,22 +25,40 @@
     </div>
 </li>
 
-<li class="dropdown">
+
+<li class="dropdown" id="li2">
         <span>Pathway</span>
         <div class="dropdown-content">
             <a href="#">Why Choose C-Hill?</a>
         </div>
 </li>
 
-    <li class="dropdown">
-        <a href="/yearbook" class="headerbutton"><span>Yearbook Information</span></a>
+    <li class="dropdown" id="li3">
+        <a href="/chsdaily/yearbook.html" class="headerbutton"><span>Yearbook Information</span></a>
     </li>
-    <div id="schoolday" class="classday"></div>
-<div class="socials">
-    <a href="https://www.instagram.com/chur.chilldaily/"><img src="img/Instagram_icon.png"></a>
-    <a href="https://www.youtube.com/channel/UCf7fGmk8vxEut9zsY_oFzJQ"><img src="img/youtube_logo.webp"></a>
+    <li class="naviconcontainer" id="naviconcontainer">
+        <div onclick="openNav()" class="navicon" id="navicon"><img src="/img/menuicon.png" style="width: 100%; height: 100%;"></div>
+    </li>
+
+
+
+
+    <div class="socials" id="socials">
+    <a href="https://www.instagram.com/chur.chilldaily/"><img src="/img/Instagram_icon.png"></a>
+    <a href="https://www.youtube.com/channel/UCf7fGmk8vxEut9zsY_oFzJQ"><img src="/img/youtube_logo.webp"></a>
+   <!-- <div id="schoolday" class="classday"></div> -->
 </div>
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <div id="schoolday"></div>
+            <a href="#">Announcements</a>
+            <a href="#">Pathway</a>
+            <a href="/yearbook">Yearbook Information</a>
+        </div>
+    </div>
 </ul>
+
 <br>
 <br>
 <br>
@@ -46,7 +66,7 @@
 <div class="slideshow-container">
     <div class="slides fade">
         <div class="numbertext">1 / 3</div>
-        <img src="img/1-long.avif" style="width: 100%">
+        <img src="/img/1-long.avif" style="width: 100%">
         <div class="slideinfocontainer">
             <a href="#" style="text-decoration: none;"><div class="slideshowbutton">Learn More</div></a>
             <p class="slideshowtext">Yearbook</p>
@@ -54,7 +74,7 @@
     </div>
     <div class="slides fade">
         <div class="numbertext">2 / 3</div>
-        <img src="img/2-long.avif" style="width: 100%">
+        <img src="/img/2-long.avif" style="width: 100%">
         <div class="slideinfocontainer">
             <a href="#" style="text-decoration: none;"><div class="slideshowbutton">Learn More</div></a>
             <p class="slideshowtext">Photo Booth</p>
@@ -62,7 +82,7 @@
     </div>
     <div class="slides fade">
         <div class="numbertext">3 / 3</div>
-        <img src="img/3-long.avif" style="width: 100%">
+        <img src="/img/3-long.avif" style="width: 100%">
         <div class="slideinfocontainer">
             <a href="#" style="text-decoration: none;"><div class="slideshowbutton">Learn More</div></a>
             <p class="slideshowtext">Announcements</p>
@@ -74,25 +94,25 @@
 <br>
 
 <div style="text-align:center">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
 </div>
 
 <!--
 <div class="photoslidecontainer">
     <div class="slide">
-        <img src="img/1.jpg">
+        <img src="/img/1.jpg">
         <div class="overlay"></div>
         <p class="slidetext">Yearbook</p>
     </div>
     <div class="slide">
-        <img src="img/2.jpg">
+        <img src="/img/2.jpg">
         <div class="overlay"></div>
         <p class="slidetext">Photo Booth</p>
     </div>
     <div class="slide">
-        <img src="img/3.jpg">
+        <img src="/img/3.jpg">
         <div class="overlay"></div>
         <p class="slidetext">Announcements</p>
     </div>
@@ -123,10 +143,11 @@
     <br>
     <br>
     <br>
-    <img src="img/bloxels-logo-splash.png" class="bloxelslogo">
+
+    <img src="/img/bloxels-logo-splash.png" class="bloxelslogo" id="bloxlogo">
 
 
-<div class="gameframe">
+<div class="gameframe" id="bloxframe">
 <iframe sandbox="allow-same-origin allow-forms allow-popups allow-modals allow-scripts" class="gameframe" title="Embedded Content" name="htmlComp-iframe" width="100%" height=600px data-src="" src="https://play.bloxels.com/arcade/52075533" class="gameframe"></iframe>
 </div>
 <p style="font-weight: bold; font-size: 14px; font-style: italic; text-align: center;">© 2025 by C-Hill A-Daily</p>
@@ -148,12 +169,12 @@
 
 
 <script async defer src="https://www.instagram.com/embed.js"></script>
-<script type="text/javascript" src="src/vanilla-tilt.js"></script>
-<script type="text/javascript" src="src/index.js"></script>
-<script type="text/javascript" src="src/calendar.js"></script>
-<script type="text/javascript" src="src/livestreamfetcher.js"></script>
-<link rel="stylesheet" href="src/style.css">
-<link rel="stylesheet" href="src/shared.css">
+<script type="text/javascript" src="/src/vanilla-tilt.js"></script>
+<script type="text/javascript" src="/src/index.js"></script>
+<script type="text/javascript" src="/src/calendar.js"></script>
+<script type="text/javascript" src="/src/livestreamfetcher.js"></script>
+<link rel="stylesheet" href="/src/style.css">
+<link rel="stylesheet" href="/src/shared.css">
 
 </body>
 </html>

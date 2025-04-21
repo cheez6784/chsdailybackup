@@ -50,6 +50,24 @@ window.addEventListener('load', function () {
     setTimeout(() => {
         preloader.style.display = 'none';
     }, 300);
+    if (window.mobileCheck() == true) {
+        document.getElementById('navicon').style.display = 'block';
+        document.getElementById('naviconcontainer').style.display = 'block';
+        document.getElementById('li1').style.display = 'none';
+        document.getElementById('li2').style.display = 'none';
+        document.getElementById('li3').style.display = 'none';
+        document.getElementById('bloxlogo').style.display = 'none';
+        document.getElementById('bloxframe').style.display = 'none';
+        document.getElementById('socials').style.display = 'none';
+    }
+    else {
+        document.getElementById('navicon').style.display = 'none';
+        document.getElementById('naviconcontainer').innerHTML = "";
+        document.getElementById('li1').style.display = 'block';
+        document.getElementById('li2').style.display = 'block';
+        document.getElementById('li3').style.display = 'block';
+        document.getElementById('socials').style.display = 'block';
+    }
 });
 
 let slideIndex = 0;
@@ -71,3 +89,12 @@ function showSlides() {
     dots[slideIndex-1].className += " active";
     setTimeout(showSlides, 6000);
 }
+
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+
