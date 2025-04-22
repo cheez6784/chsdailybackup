@@ -18,20 +18,11 @@ window.addEventListener('scroll', function () {
     if (detectMob() == false) {
         fadeElement.style.opacity = opacity;
     }
-    else {
-        fadeElement.style.opacity = 0;
-    }
 });
 
-window.onload = setDevice ()
 
-function setDevice () {
-    if (detectMob() == true) {
-        document.getElementById('instagram').style.visibility = 'hidden';
-    }
-}
 
-function detectMob() {
+function detectMobScreenSize() {
     return ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 ) );
 }
 
