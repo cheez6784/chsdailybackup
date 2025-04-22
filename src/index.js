@@ -64,6 +64,10 @@ window.addEventListener('load', function () {
         document.getElementById('bloxlogo').style.display = 'none';
         document.getElementById('bloxframe').style.display = 'none';
         document.getElementById('socials').style.display = 'none';
+        document.getElementById('slideshowcontainer').style.display = 'none';
+        document.getElementById('3dots').style.display = 'none';
+        document.getElementById('mobilebuttons').style.display = 'inline-block';
+        document.getElementById('insta-follow-text').style.fontSize = '35px';
     }
     else {
         document.getElementById('navicon').style.display = 'none';
@@ -72,6 +76,9 @@ window.addEventListener('load', function () {
         document.getElementById('li2').style.display = 'block';
         document.getElementById('li3').style.display = 'block';
         document.getElementById('socials').style.display = 'block';
+        document.getElementById('slideshowcontainer').style.display = 'block';
+        document.getElementById('3dots').style.display = 'block';
+        document.getElementById('mobilebuttons').style.display = 'none';
     }
     const preloader = document.getElementById('preloader');
     preloader.style.opacity = '0';
@@ -102,10 +109,10 @@ function showSlides() {
 }
 
 function openNav() {
-    document.getElementById("myNav").style.width = "100%";
+    document.getElementById("sidenavbar").style.width = "100%";
 }
 
 function closeNav() {
-    document.getElementById("myNav").style.width = "0%";
+    document.getElementById("sidenavbar").style.width = "0%";
 }
 

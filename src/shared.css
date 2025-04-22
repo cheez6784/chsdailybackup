@@ -62,7 +62,9 @@
     color: #f1f1f1;
 }
 
-
+.closebtn {
+    padding: 10px 20px;
+}
 .overlay .closebtn {
     position: absolute;
     top: 20px;
