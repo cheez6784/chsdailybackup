@@ -10,6 +10,7 @@ const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURICompone
 fetch(url)
     .then(res => res.json())
     .then(data => {
+        console.log("Started html assignment");
         const container = document.getElementById('schoolday');
         const container2 = document.getElementById('schooldaymobile');
         container.innerHTML = '';
@@ -23,8 +24,11 @@ fetch(url)
             const div = document.createElement('div');
             div.className = 'event';
             div.textContent = event.summary || 'No Title';
-            container.appendChild(div);
-            container2.appendChild(div);
+            console.log("Assigning event to elements");
+            console.log(div);
+            console.log(container);
+            container.innerHTML = div.textContent;
+            container2.innerHTML = div.textContent;
         });
     })
     .catch(err => {
@@ -32,3 +36,5 @@ fetch(url)
         document.getElementById('schoolday').innerHTML = 'Error loading events.';
         document.getElementById('schooldaymobile').innerHTML = 'Error loading events.';
     });
+
+

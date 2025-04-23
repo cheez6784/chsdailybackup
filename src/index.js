@@ -68,6 +68,7 @@ window.addEventListener('load', function () {
         document.getElementById('3dots').style.display = 'none';
         document.getElementById('mobilebuttons').style.display = 'inline-block';
         document.getElementById('insta-follow-text').style.fontSize = '35px';
+        document.getElementById('schoolday').style.display = 'none';
     }
     else {
         document.getElementById('navicon').style.display = 'none';
@@ -79,6 +80,7 @@ window.addEventListener('load', function () {
         document.getElementById('slideshowcontainer').style.display = 'block';
         document.getElementById('3dots').style.display = 'block';
         document.getElementById('mobilebuttons').style.display = 'none';
+        document.getElementById('schoolday').style.display = 'block';
     }
     const preloader = document.getElementById('preloader');
     preloader.style.opacity = '0';

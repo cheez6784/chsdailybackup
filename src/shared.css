@@ -57,13 +57,21 @@
     display: block;
     transition: 0.3s;
 }
+.overlay p {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 50px;
+    font-family: "Trebuchet MS";
+    color: #818181;
+    display: block;
+}
 
 .overlay a:hover, .overlay a:focus {
     color: #f1f1f1;
 }
 
 .closebtn {
-    padding: 10px 20px;
+    padding-left: 30px;
 }
 .overlay .closebtn {
     position: absolute;
