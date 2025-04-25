@@ -122,3 +122,67 @@
     background-color: #04AA6D;
     color: white;
 }
+
+.highlight::before {
+    transform: scaleX(0);
+    transform-origin: bottom right;
+}
+
+.highlight:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.highlight::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    inset: 0 0 0 0;
+    background: hsl(200 100% 80%);
+    border-radius: 15px;
+    z-index: -1;
+    transition: transform .3s ease;
+}
+
+.highlight {
+    position: relative;
+    margin: auto;
+    text-align: center;
+}
+
+
+.highlightcontainer {
+    box-sizing: border-box;
+    display: grid;
+    font-family: system-ui, sans-serif;
+}
+
+.infobutton {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-color: grey;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 999px;
+    text-align: center;
+    margin: auto;
+    cursor: help;
+    font-family: Trebuchet MS;
+    transition: background-color 0.2s ease;
+
+}
+.infobutton:hover {
+    background-color: grey;
+}
+
+.infoboxspan {
+    padding: 10px;
+    margin: auto;
+    display: block;
+    text-align: center;
+    opacity: 0;
+    font-family: "Trebuchet MS";
+    transition: opacity 0.4s ease;
+}

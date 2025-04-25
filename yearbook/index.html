@@ -8,10 +8,12 @@
 <body>
 <ul class="topheader" id="topheader">
     <div class="logocard" data-tilt data-tilt-scale="1.1" id="logocard">
-        <a href="/"><img src="/img/chill_adaily.avif"></a>
+        <a href="/chsdaily/index.html" id="mainbutton"><img src="/img/chill_adaily.avif"></a>
     </div>
 
-    <li class="dropdown">
+
+
+    <li class="dropdown highlight" id="li1">
         <span>Announcements</span>
         <div class="dropdown-content">
             <a href="#">A B C Day Schedule</a>
@@ -20,20 +22,39 @@
         </div>
     </li>
 
-    <li class="dropdown">
+
+
+    <li class="dropdown highlight" id="li2">
         <span>Pathway</span>
         <div class="dropdown-content">
             <a href="#">Why Choose C-Hill?</a>
         </div>
     </li>
 
-    <li class="dropdown">
+    <li class="dropdown highlight" id="li3">
         <a href="/chsdaily/yearbook.html" class="headerbutton"><span>Yearbook Information</span></a>
     </li>
+    <li class="naviconcontainer" id="naviconcontainer">
+        <div onclick="openNav()" class="navicon" id="navicon"><img src="/img/menuicon.png" style="width: 100%; height: 100%;"></div>
+    </li>
 
-    <div class="socials">
-        <a><img src="/img/Instagram_icon.png"></a>
+
+
+    <div id="schoolday" class="classday"></div>
+    <div class="socials" id="socials">
+        <a href="https://www.instagram.com/chur.chilldaily/"><img src="/img/Instagram_icon.png"></a>
         <a href="https://www.youtube.com/channel/UCf7fGmk8vxEut9zsY_oFzJQ"><img src="/img/youtube_logo.webp"></a>
+
+    </div>
+
+    <div id="sidenavbar" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <p id="schooldaymobile"></p>
+            <a href="#">Announcements</a>
+            <a href="#">Pathway</a>
+            <a href="/yearbook">Yearbook Information</a>
+        </div>
     </div>
 </ul>
 <h1>2024-25 Yearbook</h1>
@@ -41,7 +62,7 @@
 <br>
 <div class="yearbookgraphic">
     <div class="bookholder">
-        <a href="https://schoolpay.com/pay/for/20242025-Yearbook/Sb2cQzR"><p  data-tilt data-tilt-scale="1.1">Buy The Yearbook Here!</p></a>
+        <a href="https://schoolpay.com/pay/for/20242025-Yearbook/Sb2cQzR"><p  data-tilt data-tilt-scale="1.2">Buy The Yearbook Here!</p></a>
     </div>
 </div>
 <br>

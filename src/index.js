@@ -118,3 +118,14 @@ function closeNav() {
     document.getElementById("sidenavbar").style.width = "0%";
 }
 
+const infobutton = document.querySelector('.infobutton');
+const infobox = document.querySelector('.infoboxspan');
+
+infobutton.addEventListener('mouseenter', () => {
+    infobox.style.opacity = '1';
+});
+
+infobutton.addEventListener('mouseleave', () => {
+    infobox.style.opacity = '0';
+});
+

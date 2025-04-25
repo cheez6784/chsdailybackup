@@ -34,14 +34,11 @@ body {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-weight: bold;
     font-size: 26px;
-    transition: all 0.2s ease-in-out;
     text-shadow: 0px 0px 7px white;
 
 }
 
-.dropdown:hover {
-    font-size: 27px;
-}
+
 
 .dropdown-content {
     display: none;
@@ -421,7 +418,7 @@ li a, .dropbtn {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 20px;
     color: black;
-
+    transform: translate(-200%, 0%);
 }
 
 .insta-follow {
