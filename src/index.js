@@ -69,6 +69,8 @@ window.addEventListener('load', function () {
         document.getElementById('mobilebuttons').style.display = 'inline-block';
         document.getElementById('insta-follow-text').style.fontSize = '35px';
         document.getElementById('schoolday').style.display = 'none';
+        document.getElementById('vanillatiltscript').enabled=false;
+        document.getElementById('announcementContainer').style.display = 'none';
     }
     else {
         document.getElementById('navicon').style.display = 'none';
@@ -81,6 +83,8 @@ window.addEventListener('load', function () {
         document.getElementById('3dots').style.display = 'block';
         document.getElementById('mobilebuttons').style.display = 'none';
         document.getElementById('schoolday').style.display = 'block';
+        document.getElementById('vanillatiltscript').enabled=true;
+        document.getElementById('announcementContainer').style.display = 'flex';
     }
     const preloader = document.getElementById('preloader');
     preloader.style.opacity = '0';
@@ -129,3 +133,43 @@ infobutton.addEventListener('mouseleave', () => {
     infobox.style.opacity = '0';
 });
 
+
+async function fetchAnnouncements() {
+    try {
+        const response = await fetch('/src/testannouncements.json');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        renderAnnouncements(data);
+    } catch (error) {
+        console.error('Error loading announcements:', error);
+    }
+}
+
+function renderAnnouncements(data) {
+    const container = document.getElementById('announcementContainer');
+    const maxCards = 3;
+    const announcements = data.announcements.slice(0, maxCards);
+
+    announcements.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        VanillaTilt.init(card);
+        card.setAttribute("data-tilt", "");
+        card.setAttribute("data-tilt-scale", "1.1");
+        card.setAttribute("data-tilt-reverse", "");
+
+
+        card.innerHTML = `
+          <img src="${item.imageurl}" alt="${item.title}">
+          <div class="card-content">
+            <div class="card-title">${item.title}</div>
+            <div class="card-date">${item.date}</div>
+            <div class="card-description">${item.description}</div>
+          </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+fetchAnnouncements();

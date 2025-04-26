@@ -1,0 +1,28 @@
+{
+  "announcements" : [
+    {
+      "title" : "Sports Event",
+      "description" : "Sports event Saturday!",
+      "date" : "4/27",
+      "imageurl": "https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png"
+    },
+    {
+      "title" : "Assembly Upcoming",
+      "description" : "Placeholder description",
+      "date" : "4/29",
+      "imageurl": "https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png"
+    },
+    {
+      "title" : "No School Upcoming",
+      "description" : "Placeholder description",
+      "date" : "4/30",
+      "imageurl": "https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png"
+    },
+    {
+      "title" : "Test Announcement",
+      "description" : "Placeholder description",
+      "date" : "4/27",
+      "imageurl": "https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png"
+    }
+  ]
+}

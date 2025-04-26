@@ -83,10 +83,6 @@ body {
 
 }
 
-.dropdown:hover {
-    font-size: 27px;
-}
-
 .dropdown-content {
     display: none;
     position: absolute;
