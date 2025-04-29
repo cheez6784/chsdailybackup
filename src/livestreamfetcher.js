@@ -40,7 +40,7 @@ async function showLatestCompletedLivestream() {
             const videoId = latestStream.id;
             const title = latestStream.snippet.title;
             document.getElementById('livestreamembed').innerHTML = `
-            <iframe width="660" height="415" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="border-radius: 20px; margin: auto; align-content: center;"></iframe>
+            <iframe width="660" height="415" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="border-radius: 20px; margin: auto; align-content: center;" loading="lazy"></iframe>
           `;
         } else {
             document.getElementById('livestreamembed').innerText = 'No completed livestreams found.';

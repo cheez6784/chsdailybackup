@@ -4,21 +4,47 @@ const fadeElement = document.getElementById('topheader');
 const fadeThreshold = 200;
 
 
+let hidden = false;
+let hidetimeout = null;
+
 window.addEventListener('scroll', function () {
     const scrollY = window.scrollY;
     let opacity = 1;
-
     if (scrollY >= fadeThreshold) {
         opacity = 1 - (scrollY - fadeThreshold) / 500;
     }
-
-    if (opacity < 0) opacity = 0;
-    if (opacity > 1) opacity = 1;
-
-    if (detectMob() == false) {
+    opacity = Math.max(0, Math.min(1, opacity));
+    if (!detectMob()) {
+        fadeElement.style.transition = 'opacity 0.3s ease';
         fadeElement.style.opacity = opacity;
+        if (opacity === 0) {
+            fadeElement.style.pointerEvents = 'none';
+            if (!hidden && !hidetimeout) {
+                hidetimeout = setTimeout(() => {
+                    fadeElement.style.visibility = 'hidden';  
+                    hidden = true;
+                    hidetimeout = null;
+                }, 300); 
+            }
+        } else {
+            if (hidden) {
+                fadeElement.style.visibility = 'visible'; 
+                fadeElement.style.display = 'flex'; 
+                hidden = false;
+            }
+            if (hidetimeout) {
+                clearTimeout(hidetimeout);
+                hidetimeout = null;
+            }
+
+            fadeElement.style.pointerEvents = 'auto';
+        }
     }
 });
+
+
+
+
 
 
 
@@ -71,10 +97,15 @@ window.addEventListener('load', function () {
         document.getElementById('schoolday').style.display = 'none';
         document.getElementById('vanillatiltscript').enabled=false;
         document.getElementById('announcementContainer').style.display = 'none';
+        document.getElementById('announcementtext').style.display = 'none';
+        document.getElementById('logocard').style.height = "5%";
+        document.getElementById('logocard').style.width = "5%";
+        document.getElementById('infobutton').style.display = 'none';
     }
     else {
-        document.getElementById('navicon').style.display = 'none';
+        document.getElementById('navicon').style.visibility = 'hidden';
         document.getElementById('naviconcontainer').innerHTML = "";
+        document.getElementById('naviconcontainer').style.visibility = 'hidden';
         document.getElementById('li1').style.display = 'block';
         document.getElementById('li2').style.display = 'block';
         document.getElementById('li3').style.display = 'block';
@@ -85,6 +116,7 @@ window.addEventListener('load', function () {
         document.getElementById('schoolday').style.display = 'block';
         document.getElementById('vanillatiltscript').enabled=true;
         document.getElementById('announcementContainer').style.display = 'flex';
+        document.getElementById('announcementtext').style.display = 'block';
     }
     const preloader = document.getElementById('preloader');
     preloader.style.opacity = '0';
@@ -134,42 +166,45 @@ infobutton.addEventListener('mouseleave', () => {
 });
 
 
-async function fetchAnnouncements() {
-    try {
-        const response = await fetch('/src/testannouncements.json');
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
+fetch('https://script.google.com/macros/s/AKfycbxMxIKwTOxvyXC3sGGPZOV-22iN4r6BZNPANcS0lq_eL5haXvdEVpxD7jM4VUDDhdcM/exec')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Loaded announcements:', data);
         renderAnnouncements(data);
-    } catch (error) {
-        console.error('Error loading announcements:', error);
-    }
-}
+    })
+    .catch(error => {
+        console.error('Error fetching announcements:', error);
+    });
 
 function renderAnnouncements(data) {
     const container = document.getElementById('announcementContainer');
     const maxCards = 3;
-    const announcements = data.announcements.slice(0, maxCards);
+
+    const announcements = data.slice(0, maxCards);
+
+
 
     announcements.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
-        VanillaTilt.init(card);
-        card.setAttribute("data-tilt", "");
-        card.setAttribute("data-tilt-scale", "1.1");
-        card.setAttribute("data-tilt-reverse", "");
-
-
         card.innerHTML = `
-          <img src="${item.imageurl}" alt="${item.title}">
-          <div class="card-content">
-            <div class="card-title">${item.title}</div>
-            <div class="card-date">${item.date}</div>
-            <div class="card-description">${item.description}</div>
-          </div>
-        `;
-
+        <img src="${item.imgurl}" alt="${item.title}" loading="lazy">
+        <div class="card-content">
+          <div class="card-title">${item.name}</div>
+          <div class="card-date">${formatDate(item.date)}</div>
+          <div class="card-description">${item.description}</div>
+        </div>
+      `;
+        VanillaTilt.init(card);
         container.appendChild(card);
     });
 }
 
-fetchAnnouncements();
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    return `${month}/${day}`;
+}
+
