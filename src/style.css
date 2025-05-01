@@ -450,7 +450,6 @@ li a, .dropbtn {
 }
 
 .mobimgbttn {
-    border-radius: 30px;
     text-align: center;
     align-content: center;
     overflow: hidden;
@@ -478,9 +477,17 @@ li a, .dropbtn {
     margin: auto;
     align-content: center;
     background-color: white;
-    width: 70%;
+    max-width: 70%;
+    width: 100%;
     border-radius: 30px;
     box-shadow: 1px 1px 5px black;
+    content: "Loading Announcements...";
+}
+.card-container:empty::before {
+    content: "Loading Announcements...";
+}
+.card-container:not(:empty)::before {
+    content: "";
 }
 
 .card {
@@ -494,6 +501,11 @@ li a, .dropbtn {
     max-height: 250px;
     font-family: 'Trebuchet MS', Helvetica, sans-serif;
     box-shadow: 1px 1px 10px black;
+    transition: transform 0.15s ease;
+}
+
+.card:hover {
+    transform: scale(1.02);
 }
 
 .card img {

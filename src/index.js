@@ -166,7 +166,7 @@ infobutton.addEventListener('mouseleave', () => {
 });
 
 
-fetch('https://script.google.com/macros/s/AKfycbxMxIKwTOxvyXC3sGGPZOV-22iN4r6BZNPANcS0lq_eL5haXvdEVpxD7jM4VUDDhdcM/exec')
+fetch('https://script.google.com/macros/s/AKfycby_kNV5TcyariT0DLxR6ImiR4yuTSWh_knXHLz8xb0yDUNnT6cvoFULyk3Ph0Ye1Ylo/exec')
     .then(response => response.json())
     .then(data => {
         console.log('Loaded announcements:', data);
@@ -195,7 +195,6 @@ function renderAnnouncements(data) {
           <div class="card-description">${item.description}</div>
         </div>
       `;
-        VanillaTilt.init(card);
         container.appendChild(card);
     });
 }
