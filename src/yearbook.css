@@ -282,20 +282,33 @@ li a, .dropbtn {
 
 .socials {
     position: fixed;
+    display: flex;
     top: 0;
     right: 0;
     color: white;
-    padding: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
     z-index: 1000;
+    align-content: flex-start;
+    text-align: right;
 }
 .socials img {
     width: 30px;
     height: 30px;
+    right: 0;
+}
+.socials a {
+    margin: auto;
 }
 
 .socials img:hover {
     cursor: pointer;
 }
 
+.classday {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 20px;
+    color: black;
+}
 
 

@@ -24,14 +24,14 @@
 <li class="dropdown highlight" id="li2">
         <span>Pathway</span>
         <div class="dropdown-content">
-            <a href="#">Why Choose C-Hill?</a>
+            <a href="/wip">Why Choose C-Hill?</a>
         </div>
 </li>
     <li class="dropdown highlight" id="li3">
         <a href="/yearbook" class="headerbutton"><span>Yearbook Information</span></a>
     </li>
     <li class="naviconcontainer" id="naviconcontainer">
-        <button onclick="openNav()" class="navicon" id="navicon"><img src="/img/menuicon.png" style="width: 100%; height: 100%;" loading="lazy"></button>
+        <div onclick="openNav()" class="navicon" id="navicon"><img src="/img/menuicon.png" style="width: 100%; height: 100%;" loading="lazy"></div>
     </li>
 
     <div class="socials" id="socials">
@@ -40,7 +40,7 @@
       <div id="schoolday" class="classday"></div>
 </div>
     <div id="sidenavbar" class="overlay">
-        <button class="closebtn" onclick="closeNav()">&times;</button>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content">
             <p id="schooldaymobile"></p>
             <a href="#">Announcements</a>
@@ -84,13 +84,13 @@
 </div>
 <br>
 <div style="text-align:center" id="3dots">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="cSlide(1)"></span>
+    <span class="dot" onclick="cSlide(2)"></span>
+    <span class="dot" onclick="cSlide(3)"></span>
 </div>
 <div class="mobileimagebuttoncontainer" id="mobilebuttons">
     <div class="mobimgbttn">
-        <a href="/yearbook"><img src="/img/1-long.avif" style="width: 100%"></a>
+        <a href=""><img src="/img/1-long.avif" style="width: 100%"></a>
         <div class="imgoverlay"></div>
         <a href="/yearbook"><p class="mobileslidetext">Yearbook</p></a>
     </div>
@@ -125,28 +125,43 @@
     <br>
     <br>
     <p class="lateststreamtext">Latest Announcements</p>
-    <div id="livestreamembed" class="lsembed"></div>
+   <div id="livestreamembed" class="lsembed"></div>
+    <div class="slideshow-container" id="videocarousel">
+        <div class="vslides fade" id="vid1">
+        </div>
+        <div class="vslides fade" id="vid2">
+        </div>
+        <div class="vslides fade" id="vid3">
+        </div>
+        <div class="vslides fade" id="vid4">
+        </div>
+        <div class="vslides fade" id="vid5">
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
     <br>
     <br>
-    <img src="/img/bloxels-logo-splash.webp" class="bloxelslogo" id="bloxlogo">
     <div class="infocontainer" id="infobutton">
-        <div class="infoboxspan">The students of the Digital Media class at Churchill created a game using Bloxels! Play it below.</div>
+        <div class="infoboxspan">The students of the Digital Media class at Churchill created a game using Bloxels! Play it below by clicking the Bloxels logo.</div>
         <div class="infobutton">
             ?
         </div>
     </div>
 <div class="gameframe" id="bloxframe">
-<iframe sandbox="allow-same-origin allow-forms allow-popups allow-modals allow-scripts" class="gameframe" title="Embedded Content" name="htmlComp-iframe" width="100%" height=600px data-src="" src="https://play.bloxels.com/arcade/52075533" class="gameframe" loading="lazy"></iframe>
+    <img src="/img/bloxels-logo-splash.webp" class="bloxelslogo" id="bloxlogo" onclick="loadBloxelsGame()">
+    <iframe sandbox="allow-same-origin allow-forms allow-popups allow-modals allow-scripts" class="gameframe"  id="game" title="Embedded Content" name="htmlComp-iframe" width="100%" height=600px data-src="https://play.bloxels.com/arcade/52075533" src="about:blank" class="gameframe" loading="lazy"></iframe>
 </div>
 <p style="font-weight: bold; font-size: 14px; font-style: italic; text-align: center;">© 2025 by C-Hill A-Daily</p>
     <p style="font-size: 8px; font-style: italic; text-align: center; color: grey;">Use site on desktop for better experience</p>
 <!-- SCRIPTS AND EXTRAS -->
-<script async defer src="https://www.instagram.com/embed.js"></script>
+<script type="text/javascript" src="/src/insta-embed.js"></script>
 <script type="text/javascript" src="/src/vanilla-tilt.js" id="vanillatiltscript"></script>
 <script type="text/javascript" src="/src/index.js"></script>
 <script type="text/javascript" src="/src/calendar.js"></script>
 <script type="text/javascript" src="/src/livestreamfetcher.js"></script>
 <link rel="stylesheet" href="/src/style.css">
 <link rel="stylesheet" href="/src/shared.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </body>
 </html>

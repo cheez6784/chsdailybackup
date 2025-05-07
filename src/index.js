@@ -42,12 +42,6 @@ window.addEventListener('scroll', function () {
     }
 });
 
-
-
-
-
-
-
 function detectMobScreenSize() {
     return ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 ) );
 }
@@ -79,9 +73,13 @@ function detectMobDimensions() {
     return ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 ) );
 }
 
+window.addEventListener("loadstart", function () {
+    console.log("Page Loading Started");
+});
 
 window.addEventListener('load', function () {
     if (detectMob() == true) {
+        console.log("Mobile Browser Detected");
         document.getElementById('navicon').style.display = 'block';
         document.getElementById('naviconcontainer').style.display = 'block';
         document.getElementById('li1').style.display = 'none';
@@ -101,8 +99,11 @@ window.addEventListener('load', function () {
         document.getElementById('logocard').style.height = "5%";
         document.getElementById('logocard').style.width = "5%";
         document.getElementById('infobutton').style.display = 'none';
+        document.getElementById('videocarousel').style.display = 'none';
+        document.getElementById('livestreamembed').style.display = 'block';
     }
     else {
+        console.log("Desktop Browser Detected");
         document.getElementById('navicon').style.visibility = 'hidden';
         document.getElementById('naviconcontainer').innerHTML = "";
         document.getElementById('naviconcontainer').style.visibility = 'hidden';
@@ -117,8 +118,11 @@ window.addEventListener('load', function () {
         document.getElementById('vanillatiltscript').enabled=true;
         document.getElementById('announcementContainer').style.display = 'flex';
         document.getElementById('announcementtext').style.display = 'block';
+        document.getElementById('livestreamembed').style.display = 'none';
+        document.getElementById('videocarousel').style.display = 'block';
     }
     const preloader = document.getElementById('preloader');
+    console.log("Page Loaded");
     preloader.style.opacity = '0';
     preloader.style.transition = 'opacity 0.3s ease';
     setTimeout(() => {
@@ -144,6 +148,29 @@ function showSlides() {
     slides[slideIndex-1].style.display = "block";
     dots[slideIndex-1].className += " active";
     setTimeout(showSlides, 6000);
+}
+
+let vidSlideIndex = 1;
+showVidSlides(vidSlideIndex);
+function plusSlides(n) {
+    showVidSlides(vidSlideIndex += n);
+}
+function cSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function currentSlide(n) {
+    showVidSlides(vidSlideIndex = n);
+}
+function showVidSlides(n) {
+    let i;
+    let vslides = document.getElementsByClassName("vslides");
+    if (n > vslides.length) {vidSlideIndex = 1}
+    if (n < 1) {vidSlideIndex = vslides.length}
+    for (i = 0; i < vslides.length; i++) {
+        vslides[i].style.display = "none";
+    }
+    vslides[vidSlideIndex-1].style.display = "block";
 }
 
 function openNav() {
@@ -197,6 +224,11 @@ function renderAnnouncements(data) {
       `;
         container.appendChild(card);
     });
+    if (announcements.length === 0) {
+        console.log("No announcements found");
+        container.innerHTML = `<p style="font-family: 'Trebuchet MS'; font-size: 20px; font-weight: bold;">No Announcements Found</p>`;
+    }
+    container.contentEditable = false;
 }
 
 function formatDate(dateString) {
@@ -205,5 +237,11 @@ function formatDate(dateString) {
     const day = date.getDate();
 
     return `${month}/${day}`;
+}
+
+function loadBloxelsGame() {
+    var iframe = $("#game");
+    iframe.attr("src", iframe.data("src"));
+    document.getElementById("bloxlogo").style.display = "none";
 }
 

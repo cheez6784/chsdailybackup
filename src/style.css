@@ -103,6 +103,9 @@ li a, .dropbtn {
     border-radius: 25px;
     border-width: 8px;
     border-color: white;
+    position: relative;
+    background-color: black;
+    overflow: hidden;
 }
 
 
@@ -163,10 +166,14 @@ li a, .dropbtn {
 
 .bloxelslogo {
     text-align: center;
-    margin:auto;
+    margin: auto;
     display: block;
     scale: 30%;
     rotation: 0deg;
+    position: absolute;
+    top: 25%;
+    left: 20%;
+    z-index: 10;
     transition: all 0.1s ease;
 }
 
@@ -303,6 +310,16 @@ li a, .dropbtn {
 }
 
 .slides img {
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px black;
+}
+.vslides {
+    display: none;
+    position: relative;
+    display: grid;
+}
+
+.vslides img {
     border-radius: 20px;
     box-shadow: 1px 1px 5px black;
 }
@@ -470,7 +487,7 @@ li a, .dropbtn {
     text-shadow: 0px 0px 5px black;
 }
 .card-container {
-    display: flex;
+    display: inline-flex;
     gap: 16px;
     padding: 16px;
     overflow-x: auto;
@@ -478,30 +495,27 @@ li a, .dropbtn {
     align-content: center;
     background-color: white;
     max-width: 70%;
-    width: 100%;
+    width: fit-content;
+    overflow-y: visible;
     border-radius: 30px;
     box-shadow: 1px 1px 5px black;
-    content: "Loading Announcements...";
-}
-.card-container:empty::before {
-    content: "Loading Announcements...";
-}
-.card-container:not(:empty)::before {
-    content: "";
 }
 
 .card {
     flex: 0 0 auto;
     width: 300px;
+    display: inline-flex;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
     background-color: white;
     margin: auto;
     max-height: 250px;
+    height: 100%;
     font-family: 'Trebuchet MS', Helvetica, sans-serif;
     box-shadow: 1px 1px 10px black;
-    transition: transform 0.15s ease;
+    transition: all 0.15s ease;
 }
 
 .card:hover {
