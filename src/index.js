@@ -101,6 +101,7 @@ window.addEventListener('load', function () {
         document.getElementById('infobutton').style.display = 'none';
         document.getElementById('videocarousel').style.display = 'none';
         document.getElementById('livestreamembed').style.display = 'block';
+        document.getElementById('fullscrrenbutton').style.display = 'none';
     }
     else {
         console.log("Desktop Browser Detected");
@@ -243,5 +244,76 @@ function loadBloxelsGame() {
     var iframe = $("#game");
     iframe.attr("src", iframe.data("src"));
     document.getElementById("bloxlogo").style.display = "none";
+    document.getElementById('fullscrrenbutton').style.display = 'block';
 }
+
+function fullscreenGame() {
+    const elem = document.getElementById("game");
+    try {
+        elem.requestFullscreen();
+        console.log("Fullscreened game successfully");
+    }catch(error) {
+        console.log("Failed to fullscreen game, ERR: " + error);
+    }
+}
+
+let jsonData = null;
+
+async function checkForId(id) {
+    fetch("/src/items.json")
+        .then(response => response.json())
+        .then(data => {
+            jsonData = data;
+            console.log("LOADSCRIPT RETURN JSON");
+            console.log(jsonData);
+        })
+        .catch(err => {
+            document.getElementById('result').textContent = 'Error loading file';
+            console.error('Error loading file:', err);
+        });
+    if (!jsonData || !Array.isArray(jsonData)) {
+        console.log("Error with verifying file");
+        return;
+    }
+    const matchFound = jsonData.some(item => item.id && item.id.includes(id));
+    console.log(matchFound === true);
+    return matchFound;
+}
+const key = 'cart';
+async function addToCart(itemId) {
+    let found = await checkForId(itemId);
+    console.log(found === undefined);
+    if (found === false) return;
+    let cart = JSON.parse(localStorage.getItem(key)) || [];
+    cart.push(itemId);
+    console.log(cart);
+    localStorage.setItem(key, JSON.stringify(cart));
+    console.log("Item ID: " + itemId + " has been added to cart");
+}
+function getCart() {
+    let cart = JSON.parse(localStorage.getItem(key)) || [];
+    return cart;
+}
+function clearCart() {
+    localStorage.removeItem(key);
+}
+
+
+
+clearCart();
+addToCart('12345');
+addToCart('12324');
+console.log(getCart());
+
+
+function openOverlay(url) {
+    document.getElementById("videoFrame").src = url + "?autoplay=1";
+    document.getElementById("videoOverlay").style.display = "flex";
+}
+
+function closeOverlay() {
+    document.getElementById("videoOverlay").style.display = "none";
+    document.getElementById("videoFrame").src = "";
+}
+
 

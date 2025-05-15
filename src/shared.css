@@ -191,3 +191,43 @@
     font-family: "Trebuchet MS";
     transition: opacity 0.4s ease;
 }
+
+.frameoverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.overlay-content {
+    position: relative;
+    top: 0;
+}
+
+.closeframe {
+    position: absolute;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    top: 0;
+    right: 6%;
+}
+
+.closeframe:hover {
+    cursor: pointer;
+}
+
+.ytframe {
+    margin: auto;
+    border-radius: 20px;
+    position: relative;
+    top: 50%;
+
+}
+

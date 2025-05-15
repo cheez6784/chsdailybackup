@@ -24,7 +24,7 @@
 <li class="dropdown highlight" id="li2">
         <span>Pathway</span>
         <div class="dropdown-content">
-            <a href="/wip">Why Choose C-Hill?</a>
+            <a onclick="openOverlay('https://youtube.com/embed/C_tJ8xniYnU')">Why Choose C-Hill?</a>
         </div>
 </li>
     <li class="dropdown highlight" id="li3">
@@ -44,14 +44,18 @@
         <div class="overlay-content">
             <p id="schooldaymobile"></p>
             <a href="#">Announcements</a>
-            <a href="#">Pathway</a>
+            <a onclick="openOverlay('https://youtube.com/embed/C_tJ8xniYnU')">Pathway</a>
             <a href="/yearbook">Yearbook Information</a>
         </div>
     </div>
 </ul>
 <!-- END OF TOP NAVBAR -->
-<br>
-<br>
+<div id="videoOverlay" class="frameoverlay" onclick="closeOverlay()">
+    <div class="overlay-content">
+        <div class="closeframe" onclick="closeOverlay()">&times;</div>
+        <iframe id="videoFrame" width="1120" height="630" frameborder="0" class="ytframe" allowfullscreen></iframe>
+    </div>
+</div>
 <br>
 <p id="announcements"></p>
 <div class="slideshow-container" id="slideshowcontainer">
@@ -90,7 +94,7 @@
 </div>
 <div class="mobileimagebuttoncontainer" id="mobilebuttons">
     <div class="mobimgbttn">
-        <a href=""><img src="/img/1-long.avif" style="width: 100%"></a>
+        <a href="/yearbook"><img src="/img/1-long.avif" style="width: 100%"></a>
         <div class="imgoverlay"></div>
         <a href="/yearbook"><p class="mobileslidetext">Yearbook</p></a>
     </div>
@@ -106,11 +110,9 @@
     </div>
 </div>
 <br>
-<br>
 <p class="insta-follow" id="announcementtext">Announcements</p>
 <div class="card-container" id="announcementContainer" contenteditable="true">
 </div>
-<br>
 <br>
 <p class="insta-follow" id="insta-follow-text">Follow Us On Instagram <a href="https://www.instagram.com/chur.chilldaily/">@chur.chilldaily</a></p>
 <div class="instagram-scroll-container" id="instagram">
@@ -122,8 +124,6 @@
             </div>
         </blockquote>
     </div>
-    <br>
-    <br>
     <p class="lateststreamtext">Latest Announcements</p>
    <div id="livestreamembed" class="lsembed"></div>
     <div class="slideshow-container" id="videocarousel">
@@ -140,20 +140,20 @@
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
-    <br>
-    <br>
     <div class="infocontainer" id="infobutton">
-        <div class="infoboxspan">The students of the Digital Media class at Churchill created a game using Bloxels! Play it below by clicking the Bloxels logo.</div>
+        <div class="infoboxspan">The students of the Digital Media class at Churchill created a game using Bloxels! Play Lancer's Quest below by clicking the Bloxels logo.</div>
         <div class="infobutton">
             ?
         </div>
     </div>
 <div class="gameframe" id="bloxframe">
     <img src="/img/bloxels-logo-splash.webp" class="bloxelslogo" id="bloxlogo" onclick="loadBloxelsGame()">
-    <iframe sandbox="allow-same-origin allow-forms allow-popups allow-modals allow-scripts" class="gameframe"  id="game" title="Embedded Content" name="htmlComp-iframe" width="100%" height=600px data-src="https://play.bloxels.com/arcade/52075533" src="about:blank" class="gameframe" loading="lazy"></iframe>
+    <iframe sandbox="allow-same-origin allow-forms allow-popups allow-modals allow-scripts" class="gameframe"  id="game" title="Embedded Content" name="htmlComp-iframe" width="100%" height=600px data-src="https://play.bloxels.com/arcade/52075533" src="about:blank" class="gameframe" loading="lazy">Please use a browser that supports IFrames</iframe>
+    <img src="/img/white_fullscreen.webp" onclick="fullscreenGame()" id="fullscrrenbutton" class="fullscreenbutton" style="width: 60px; height: 60px; display: none;">
 </div>
+
 <p style="font-weight: bold; font-size: 14px; font-style: italic; text-align: center;">© 2025 by C-Hill A-Daily</p>
-    <p style="font-size: 8px; font-style: italic; text-align: center; color: grey;">Use site on desktop for better experience</p>
+<p style="font-size: 8px; font-style: italic; text-align: center; color: grey;">Use site on desktop for better experience</p>
 <!-- SCRIPTS AND EXTRAS -->
 <script type="text/javascript" src="/src/insta-embed.js"></script>
 <script type="text/javascript" src="/src/vanilla-tilt.js" id="vanillatiltscript"></script>

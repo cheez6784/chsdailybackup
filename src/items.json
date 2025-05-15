@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "id": "12345",
+      "name": "Lancer T-Shirt",
+      "imageurl": "",
+      "canpurchase": "true",
+      "description": "White cotton t-shirt with the CHS Lancer logo on the front.",
+      "price": "15.99",
+      "buylimit": "5",
+      "disclaimer": "This item is limited stock"
+    }
+  ]
+}

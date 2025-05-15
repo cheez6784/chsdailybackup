@@ -48,7 +48,7 @@ body {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
+    padding: 7px 16px;
     z-index: 1;
     font-size: 17px;
     border-radius: 15px;
@@ -106,6 +106,9 @@ li a, .dropbtn {
     position: relative;
     background-color: black;
     overflow: hidden;
+    align-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 
@@ -165,21 +168,35 @@ li a, .dropbtn {
 }
 
 .bloxelslogo {
-    text-align: center;
     margin: auto;
     display: block;
     scale: 30%;
+    width: 100%;
     rotation: 0deg;
     position: absolute;
-    top: 25%;
-    left: 20%;
+    align-self: center;
     z-index: 10;
+    top: 15%;
     transition: all 0.1s ease;
+    animation: rotatelogo 0.7s ease 4s paused;
 }
 
 .bloxelslogo:hover {
-    scale: 35%;
     rotate: -5deg;
+    animation-play-state: running;
+}
+
+.fullscreenbutton {
+    position: absolute;
+    display: block;
+    margin: auto;
+    bottom: 20px;
+    right: 20px;
+}
+
+@keyframes rotatelogo {
+    from {rotate: -5deg;}
+    to {rotate: 360deg; animation-play-state: running;}
 }
 
 
@@ -290,7 +307,7 @@ li a, .dropbtn {
 * {box-sizing:border-box}
 
 .slideshow-container {
-    max-width: 1000px;
+    max-width: 100%;
     max-height: 500px;
     position: relative;
     margin: auto;
@@ -350,7 +367,7 @@ li a, .dropbtn {
 
 .slidetext {
     color: #f2f2f2;
-    font-size: 15px;
+    font-size: 30px;
     padding: 8px 12px;
     position: absolute;
     bottom: 8px;
@@ -395,11 +412,11 @@ li a, .dropbtn {
     background-color: lightgrey;
     border-radius: 20px;
     box-shadow: 1px 1px 5px black;
-    width: 25%;
-    height: 75%;
+    width: 20%;
+    height: 50%;
     position: absolute;
-    bottom: 40px;
-    left: 40px;
+    bottom: 80px;
+    left: 80px;
     z-index: 2;
     display: flex;
     flex-direction: column;
