@@ -1,6 +1,5 @@
 const fadeElement = document.getElementById('topheader');
 
-
 const fadeThreshold = 200;
 
 
