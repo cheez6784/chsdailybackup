@@ -87,6 +87,10 @@ body {
 
 }
 
+.dropdown:hover {
+    cursor: pointer;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;

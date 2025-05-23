@@ -2,10 +2,16 @@ const fadeElement = document.getElementById('topheader');
 
 const fadeThreshold = 200;
 
-
+const key = 'cart';
+const pricekey = "cartprice";
 let hidden = false;
 let hidetimeout = null;
 
+
+const roundToHundredth = (value) => {
+    const num = Number(value);
+    return Number(num.toFixed(2));
+};
 window.addEventListener('scroll', function () {
     const scrollY = window.scrollY;
     let opacity = 1;
@@ -101,6 +107,10 @@ window.addEventListener('load', function () {
         document.getElementById('videocarousel').style.display = 'none';
         document.getElementById('livestreamembed').style.display = 'block';
         document.getElementById('fullscrrenbutton').style.display = 'none';
+        document.getElementById('desktopcart').style.display = 'none';
+        document.getElementById('mobilecart').style.display = 'block';
+        document.getElementById('checkoutbutton').style.scale = "2.5";
+        document.getElementById('checkoutbutton').style.transform = "translate(9%, -50%)";
     }
     else {
         console.log("Desktop Browser Detected");
@@ -120,6 +130,8 @@ window.addEventListener('load', function () {
         document.getElementById('announcementtext').style.display = 'block';
         document.getElementById('livestreamembed').style.display = 'none';
         document.getElementById('videocarousel').style.display = 'block';
+        document.getElementById('desktopcart').style.display = 'block';
+
     }
     const preloader = document.getElementById('preloader');
     console.log("Page Loaded");
@@ -181,6 +193,86 @@ function closeNav() {
     document.getElementById("sidenavbar").style.width = "0%";
 }
 
+async function findBuyLimit(itemId) {
+    const fetchitems = await fetch("/src/items.json");
+    const fetchjson = await fetchitems.json();
+    const allitems = fetchjson.items;
+    const item = allitems.find(i => String(i.id) === String(itemId));
+    const blimit = item ? item.buylimit : null;
+    return blimit;
+}
+
+async function refreshCart() {
+    console.log("Refreshing cart");
+    const container = document.getElementById('cartitems');
+    let cartlist = getCart();
+    console.log(cartlist);
+    const fetchitems = await fetch("/src/items.json");
+    const fetchjson = await fetchitems.json();
+    const allitems = fetchjson.items;
+    let addeditems = allitems.filter(item => cartlist.includes(String(item.id)));
+    localStorage.setItem("addeditems", JSON.stringify(addeditems));
+    let itemsandquantities = {};
+    let itemsandpriceids = {};
+    let prices = [];
+    let totalprice = 0.00;
+    container.innerHTML = '';
+    addeditems.forEach(item => {
+        if (item.canpurchase === "true") {
+            const card = document.createElement('div');
+            card.className = 'itemcard';
+            if (detectMob() == true) {
+                card.className = 'itemcardmobile';
+            }
+            let quantity = 0;
+            console.log(cartlist);
+            for (let cartlistitem of cartlist) {
+                if(String(item.id) === cartlistitem) {
+                    quantity++;
+                }
+            }
+            itemsandquantities[item.id] = quantity;
+            itemsandpriceids[item.id] = item.price_id;
+            if (quantity > parseInt(item.buylimit)) {
+                quantity = parseInt(item.buylimit);
+            }
+            prices.push(parseFloat(item.price) * roundToHundredth(quantity).toString());
+            totalprice = totalprice + (parseFloat(item.price) * roundToHundredth(quantity).toString());
+
+            card.innerHTML = `
+        <img src="${item.imageurl}" alt="${item.title}" loading="lazy">
+        <div class="card-content">
+          <div class="card-title">${item.name}</div>
+          <div class="card-price">${"$"+roundToHundredth(parseFloat(item.price) * quantity).toString()}</div>
+          <div class="card-date"><div onclick="removeFromCart(${item.id})" class="addremovebuttons">-</div> ${quantity} <div onclick="addToCart(String(${item.id}))" class="addremovebuttons">+</div></div>
+        </div>
+      `;
+            container.appendChild(card);
+        }
+    });
+    if (totalprice <= 0) {
+        totalprice = 0.00;
+    }
+    localStorage.setItem("itemsandquantities", JSON.stringify(itemsandquantities));
+    localStorage.setItem("itemsandpriceids", JSON.stringify(itemsandpriceids));
+    localStorage.setItem(pricekey, totalprice);
+
+}
+
+async function openCart() {
+    refreshCart()
+    if(detectMob() == true) {
+        document.getElementById("cartoverlay").style.width = "100%";
+    }
+    else {
+        document.getElementById("cartoverlay").style.width = "50%";
+    }
+}
+
+function closeCart() {
+    document.getElementById("cartoverlay").style.width = "0%";
+}
+
 const infobutton = document.querySelector('.infobutton');
 const infobox = document.querySelector('.infoboxspan');
 
@@ -191,6 +283,18 @@ infobutton.addEventListener('mouseenter', () => {
 infobutton.addEventListener('mouseleave', () => {
     infobox.style.opacity = '0';
 });
+
+const checkoutbutton = document.getElementById('checkoutbutton');
+
+checkoutbutton.addEventListener('mouseenter', () => {
+    const price = localStorage.getItem(pricekey);
+    checkoutbutton.textContent = "$"+roundToHundredth(price).toString();
+});
+
+checkoutbutton.addEventListener('mouseleave', () => {
+    checkoutbutton.textContent = 'Checkout';
+});
+
 
 
 fetch('https://script.google.com/macros/s/AKfycby_kNV5TcyariT0DLxR6ImiR4yuTSWh_knXHLz8xb0yDUNnT6cvoFULyk3Ph0Ye1Ylo/exec')
@@ -259,35 +363,51 @@ function fullscreenGame() {
 let jsonData = null;
 
 async function checkForId(id) {
-    fetch("/src/items.json")
-        .then(response => response.json())
-        .then(data => {
-            jsonData = data;
-            console.log("LOADSCRIPT RETURN JSON");
-            console.log(jsonData);
-        })
-        .catch(err => {
-            document.getElementById('result').textContent = 'Error loading file';
-            console.error('Error loading file:', err);
-        });
-    if (!jsonData || !Array.isArray(jsonData)) {
-        console.log("Error with verifying file");
-        return;
+    try {
+        const response = await fetch("/src/items.json");
+        const data = await response.json();
+        const items = data.items;
+
+        if (!Array.isArray(items)) {
+            console.log("Error with verifying file");
+            return false;
+        }
+        const matchFound = items.some(item => item.id && item.id.includes(id));
+        if (matchFound === false) {
+            console.log("Item ID "+id+" not found");
+        }
+        return matchFound;
+    } catch (err) {
+        document.getElementById('result').textContent = 'Error loading file';
+        console.error('Error loading file:', err);
+        return false;
     }
-    const matchFound = jsonData.some(item => item.id && item.id.includes(id));
-    console.log(matchFound === true);
-    return matchFound;
 }
-const key = 'cart';
+
+
 async function addToCart(itemId) {
     let found = await checkForId(itemId);
+    console.log("FOUND "+found);
     console.log(found === undefined);
     if (found === false) return;
     let cart = JSON.parse(localStorage.getItem(key)) || [];
+    let itemquantity = 0;
+    for (let cartlistitem of cart) {
+        if(String(itemId) === cartlistitem) {
+            itemquantity++;
+        }
+    }
+    console.log(await findBuyLimit(itemId));
+    if (parseInt(itemquantity) >= parseInt(await findBuyLimit(itemId))) {
+        console.log("Buy limit reached, item not added to cart");
+        return;
+    }
     cart.push(itemId);
-    console.log(cart);
+    console.log("CART "+cart);
     localStorage.setItem(key, JSON.stringify(cart));
+    console.log("Updated Cart:", JSON.parse(localStorage.getItem(key)));
     console.log("Item ID: " + itemId + " has been added to cart");
+    refreshCart();
 }
 function getCart() {
     let cart = JSON.parse(localStorage.getItem(key)) || [];
@@ -296,13 +416,24 @@ function getCart() {
 function clearCart() {
     localStorage.removeItem(key);
 }
+function removeFromCart(itemId) {
+    console.log("Remove from cart " + itemId);
+    let cart = JSON.parse(localStorage.getItem(key)) || [];
+    console.log(cart);
+    for (let index = 0; index < cart.length; index++) {
+        if (parseInt(cart[index]) === parseInt(itemId)) {
+            console.log("Found");
+            cart.splice(index, 1);
+            break;
+        }
+    }
+    localStorage.setItem(key, JSON.stringify(cart));
+    console.log("New cart " + JSON.stringify(cart));
+    refreshCart();
+}
 
 
 
-clearCart();
-addToCart('12345');
-addToCart('12324');
-console.log(getCart());
 
 
 function openOverlay(url) {
@@ -314,5 +445,29 @@ function closeOverlay() {
     document.getElementById("videoOverlay").style.display = "none";
     document.getElementById("videoFrame").src = "";
 }
+
+function goToCheckout() {
+    document.getElementById('checkoutbutton').innerHTML = "Loading...";
+    const stripe = Stripe('pk_test_51RS08CP6GvQdglTMipB2KfsejzM9nL6hkgRYhon4PFsxIiBjJ2PSjJSeLZDqEHlGcGj7REAP0zlGYH5zCAfe01fx00lrFFDVvo');
+    const iaq = JSON.parse(localStorage.getItem("itemsandquantities"));
+    const iapi = JSON.parse(localStorage.getItem("itemsandpriceids"));
+    let pidaq = {};
+    const cart = getCart();
+    for (let item of cart) {
+        pidaq[iapi[item.toString()]] = iaq[item.toString()];
+    }
+    const LI = Object.entries(pidaq).map(([price, quantity]) => ({
+        price,
+        quantity
+    }));
+    stripe.redirectToCheckout({
+        lineItems: LI,
+        mode: 'payment',
+        successUrl: 'https://gurt.lol/thankyou',
+        cancelUrl: 'https://gurt.lol',
+    });
+}
+
+
 
 

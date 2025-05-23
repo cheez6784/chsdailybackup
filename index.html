@@ -30,8 +30,12 @@
     <li class="dropdown highlight" id="li3">
         <a href="/yearbook" class="headerbutton"><span>Yearbook Information</span></a>
     </li>
+    <li class="dropdown">
+        <div class="carticon" id="desktopcart" onclick="openCart()"><img src="/img/cart.webp" loading="lazy" style="width: 90px; height: 90px; top:-2%; right: -2%;"></div>
+    </li>
     <li class="naviconcontainer" id="naviconcontainer">
         <div onclick="openNav()" class="navicon" id="navicon"><img src="/img/menuicon.png" style="width: 100%; height: 100%;" loading="lazy"></div>
+        <div class="carticon" id="mobilecart" onclick="openCart()"><img src="/img/cart.webp" loading="lazy" style="width: 100%; height: 100%;"></div>
     </li>
 
     <div class="socials" id="socials">
@@ -47,6 +51,17 @@
             <a onclick="openOverlay('https://youtube.com/embed/C_tJ8xniYnU')">Pathway</a>
             <a href="/yearbook">Yearbook Information</a>
         </div>
+    </div>
+    <div class="cartoverlay" id="cartoverlay">
+        <a href="javascript:void(0)" class="closebtnCart" onclick="closeCart()">&times;</a>
+        <div class="cartoverlaycontent">
+            <p class="carttext">CART</p>
+            <div id="cartitems" class="carditems">
+
+            </div>
+            <div class="checkout" id="checkoutbutton" onclick="goToCheckout()">Checkout</div>
+        </div>
+
     </div>
 </ul>
 <!-- END OF TOP NAVBAR -->
@@ -152,7 +167,24 @@
     <img src="/img/white_fullscreen.webp" onclick="fullscreenGame()" id="fullscrrenbutton" class="fullscreenbutton" style="width: 60px; height: 60px; display: none;">
 </div>
 
-<p style="font-weight: bold; font-size: 14px; font-style: italic; text-align: center;">© 2025 by C-Hill A-Daily</p>
+<div class="flexbox">
+    <div class="itembuycard padded">
+        <div class="itembuycard-title"><p>TEST ITEM</p></div>
+        <img src="/img/productimages/PlainBlackTee.webp">
+        <div class="itembuycard-price" id="testitem-price">$15.49</div>
+        <div class="addtocart" onclick="addToCart('55443')">Add To Cart</div>
+    </div>
+    <div class="itembuycard padded">
+        <div class="itembuycard-title"><p>Lancer T-Shirt (TEST ITEM)</p></div>
+        <img src="/img/productimages/PlainBlackTee.webp">
+        <div class="itembuycard-price" id="testitem2-price">$15.99</div>
+        <div class="addtocart" onclick="addToCart('12345')">Add To Cart</div>
+    </div>
+</div>
+
+
+
+    <p style="font-weight: bold; font-size: 14px; font-style: italic; text-align: center;">© 2025 by C-Hill A-Daily</p>
 <p style="font-size: 8px; font-style: italic; text-align: center; color: grey;">Use site on desktop for better experience</p>
 <!-- SCRIPTS AND EXTRAS -->
 <script type="text/javascript" src="/src/insta-embed.js"></script>
@@ -162,6 +194,10 @@
 <script type="text/javascript" src="/src/livestreamfetcher.js"></script>
 <link rel="stylesheet" href="/src/style.css">
 <link rel="stylesheet" href="/src/shared.css">
+<script src="https://js.stripe.com/v3/"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Lexend:wght@100..900&display=swap" rel="stylesheet">
 </body>
 </html>

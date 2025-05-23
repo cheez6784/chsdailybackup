@@ -2,13 +2,35 @@
   "items": [
     {
       "id": "12345",
-      "name": "Lancer T-Shirt",
-      "imageurl": "",
+      "name": "Lancer T-Shirt (TEST ITEM)",
+      "imageurl": "https://sassysharonsdesigns.com/cdn/shop/files/PlainBlackTee.png?v=1695769831&width=1946",
       "canpurchase": "true",
       "description": "White cotton t-shirt with the CHS Lancer logo on the front.",
       "price": "15.99",
       "buylimit": "5",
+      "disclaimer": "This item is limited stock",
+      "price_id": "price_1RS0E6P6GvQdglTMbVKTOKii"
+    },
+    {
+      "id": "54321",
+      "name": "Lancer T-Shirt Also (TEST ITEM)",
+      "imageurl": "https://sassysharonsdesigns.com/cdn/shop/files/PlainBlackTee.png?v=1695769831&width=1946",
+      "canpurchase": "true",
+      "description": "White cotton t-shirt with the CHS Lancer logo on the front.",
+      "price": "15.99",
+      "buylimit": "99",
       "disclaimer": "This item is limited stock"
+    },
+    {
+      "id": "55443",
+      "name": "TEST ITEM",
+      "imageurl": "/img/productimages/PlainBlackTee.webp",
+      "canpurchase": "true",
+      "description": "White cotton t-shirt with the CHS Lancer logo on the front.",
+      "price": "15.49",
+      "buylimit": "12",
+      "disclaimer": "This item is limited stock",
+      "price_id": "price_1RS0EmP6GvQdglTMIoMzF0p7"
     }
   ]
 }

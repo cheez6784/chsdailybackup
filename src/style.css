@@ -36,8 +36,15 @@ body {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-weight: bold;
     font-size: 26px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     text-shadow: 0px 0px 7px white;
 
+}
+
+.dropdown:hover {
+    cursor: pointer;
 }
 
 
@@ -388,14 +395,14 @@ li a, .dropbtn {
     height: 15px;
     width: 15px;
     margin: 0 2px;
-    background-color: #bbb;
+    background-color: #bbbbbb;
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
 }
 
 .active {
-    background-color: #717171;
+    background-color: #555555;
 }
 
 .fade {
@@ -426,7 +433,8 @@ li a, .dropbtn {
 }
 
 .slideshowbutton {
-    background-color: red;
+    background-color: transparent;
+    border: red solid 3px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-weight: bold;
     font-size: 16px;
@@ -534,14 +542,77 @@ li a, .dropbtn {
     box-shadow: 1px 1px 10px black;
     transition: all 0.15s ease;
 }
+.itemcard {
+    flex: 0 0 auto;
+    width: 300px;
+    display: inline-flex;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background-color: white;
+    justify-content: center;
+    margin: 10px;
+    text-align: center;
+    max-height: 170px;
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    transition: all 0.15s ease;
+}
+.itemcardmobile {
+    flex: 0 0 auto;
+    max-width: 800px;
+    width: 100%;
+    display: inline-flex;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background-color: white;
+    margin: auto;
+    max-height: 800px;
+    height: 100%;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 40px;
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    box-shadow: 1px 1px 10px black;
+    transition: all 0.15s ease;
+}
+
+.itemcardmobile div {
+    scale: 1.4;
+    transform: translate(10%, 15%);
+}
+
+.itemcardmobile a {
+    font-size: 20px;
+}
 
 .card:hover {
     transform: scale(1.02);
 }
 
+.carditems {
+
+}
+
 .card img {
     width: 100%;
     height: 150px;
+    object-fit: cover;
+}
+.itemcard img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.itemcardmobile img {
+    width: 40%;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -559,9 +630,152 @@ li a, .dropbtn {
     font-size: 0.9em;
     color: #555;
     margin-bottom: 8px;
+    display: flex;
+    padding: 10px;
+}
+.card-price {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
 .card-description {
-    font-size: 1em;
+    font-size: 0.7em;
     color: #333;
 }
+.removebutton {
+    background-color: red;
+    height: 100%;
+    width: 10px;
+    left: 0;
+    bottom: 0;
+}
+
+.removeitem {
+    font-size: 8px;
+
+}
+.removeitem:hover {
+    cursor: pointer;
+}
+
+.checkout {
+    width: 350px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: transparent;
+    bottom: 0;
+    margin-left: 25%;
+    margin-right: 25%;
+    border: #333333 solid 1px;
+    transition: all 0.2s ease;
+    text-align: center;
+    line-height: 50px;
+    font-family: "Trebuchet MS";
+    font-weight: bold;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: absolute;
+
+}
+.checkout:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 8px black inset;
+}
+
+.addremovebuttons {
+    padding: 5px;
+    background-color: transparent;
+    border: #333333 solid 1px;
+    border-radius: 6px;
+    line-height: 7px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: box-shadow 0.2s ease;
+}
+.addremovebuttons:hover {
+    box-shadow: 0px 0px 3px black inset;
+}
+
+.addtocarttest {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    background-color: cyan;
+    color: white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    line-height: 90px;
+    cursor: pointer;
+    transform: rotate(0deg);
+}
+
+.carttext {
+    font-family: verdana;
+    font-weight: bolder;
+    color: black;
+}
+
+.itembuycard {
+    max-height: 355px;
+    height: 100%;
+    max-width: 300px;
+    width: 100%;
+    border: #333333 solid 1px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: block;
+    padding: 10px;
+    background-color: white;
+    align-items: center;
+    text-align: center;
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+
+}
+.itembuycard img {
+    width: 60%;
+    height: 10%;
+}
+
+.itembuycard-price {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-family: "Lexend", sans-serif;
+}
+
+.itembuycard-title {
+    font-weight: bold;
+    font-size: 1.3em;
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
+.addtocart {
+    width: 200px;
+    height: 35px;
+    border: #333333 solid 1px;
+    margin: auto;
+    line-height: 33px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: box-shadow 0.2s ease;
+}
+.addtocart:hover {
+    box-shadow: 0px 0px 6px black inset;
+}
+
+
