@@ -446,25 +446,33 @@ function closeOverlay() {
     document.getElementById("videoFrame").src = "";
 }
 
-function goToCheckout() {
+
+async function goToCheckout() {
     document.getElementById('checkoutbutton').innerHTML = "Loading...";
     const stripe = Stripe('pk_test_51RS08CP6GvQdglTMipB2KfsejzM9nL6hkgRYhon4PFsxIiBjJ2PSjJSeLZDqEHlGcGj7REAP0zlGYH5zCAfe01fx00lrFFDVvo');
-    const iaq = JSON.parse(localStorage.getItem("itemsandquantities"));
-    const iapi = JSON.parse(localStorage.getItem("itemsandpriceids"));
-    let pidaq = {};
-    const cart = getCart();
-    for (let item of cart) {
-        pidaq[iapi[item.toString()]] = iaq[item.toString()];
+    const quantities = JSON.parse(localStorage.getItem("itemsandquantities"));
+    const priceIds = JSON.parse(localStorage.getItem("itemsandpriceids"));
+    const LI = Object.keys(quantities)
+        .filter(id => quantities[id] > 0 && priceIds[id])
+        .map(id => ({
+            price: priceIds[id],
+            quantity: quantities[id]
+        }));
+
+    if (LI.length === 0) {
+        alert("Your cart is empty or contains invalid items.");
+        return;
     }
-    const LI = Object.entries(pidaq).map(([price, quantity]) => ({
-        price,
-        quantity
-    }));
+
     stripe.redirectToCheckout({
         lineItems: LI,
         mode: 'payment',
         successUrl: 'https://gurt.lol/thankyou',
         cancelUrl: 'https://gurt.lol',
+    }).then(function (result) {
+        if (result.error) {
+            console.error(result.error.message);
+        }
     });
 }
 
