@@ -355,7 +355,7 @@ li a, .dropbtn {
     width: auto;
     margin-top: -22px;
     padding: 16px;
-    color: white;
+    color: black;
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
@@ -369,7 +369,7 @@ li a, .dropbtn {
 }
 
 .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.4);
 }
 
 .slidetext {
@@ -542,6 +542,26 @@ li a, .dropbtn {
     box-shadow: 1px 1px 10px black;
     transition: all 0.15s ease;
 }
+
+.skelcard {
+    width: 300px;
+    display: block;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background-color: white;
+    margin: auto;
+    max-height: 250px;
+    height: 100%;
+    font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    box-shadow: 1px 1px 10px black;
+    transition: all 0.15s ease;
+}
 .itemcard {
     flex: 0 0 auto;
     width: 300px;
@@ -604,6 +624,8 @@ li a, .dropbtn {
     width: 100%;
     height: 150px;
     object-fit: cover;
+    mask-image: linear-gradient(to right, black 65%, transparent 85%);
+    -webkit-mask-image: linear-gradient(to right, black 65%, transparent 85%);
 }
 .itemcard img {
     width: 100%;
@@ -776,6 +798,37 @@ li a, .dropbtn {
 }
 .addtocart:hover {
     box-shadow: 0px 0px 6px black inset;
+}
+
+.skeleton-text {
+    height: 1em;
+    width: 100%;
+    background: linear-gradient(90deg, #eee, #ddd, #eee);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.altdesktopcart {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 77px;
+    height: 77px;
+    cursor: pointer;
+    display: none;
+}
+
+.altdesktopcart img {
+    width: 100%;
+    height: 100%;
 }
 
 

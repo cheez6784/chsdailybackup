@@ -48,8 +48,48 @@ window.addEventListener('scroll', function () {
 });
 
 function detectMobScreenSize() {
-    return ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 ) );
+    return ( ( window.innerWidth <= 1036 ));
 }
+function detectMobScreenSize2() {
+    return ( ( window.innerWidth <= 855 ));
+}
+
+
+function shiftcart() {
+    if (detectMobScreenSize() && !detectMob()) {
+       document.getElementById("altdesktopcart").style.display = 'block';
+        document.getElementById("desktopcart").style.display = 'none';
+    }
+    else {
+        document.getElementById("altdesktopcart").style.display = 'none';
+        document.getElementById("desktopcart").style.display = 'block';
+    }
+
+    if (detectMobScreenSize2() && !detectMob()) {
+        document.getElementById('navicon').style.display = 'block';
+        document.getElementById('navicon').style.scale = "0.5";
+        document.getElementById('navicon').style.marginTop = "15px";
+        document.getElementById('navicon').style.position = "fixed";
+        document.getElementById('navicon').style.visibility = 'visible';
+        document.getElementById('naviconcontainer').style.display = 'block';
+        document.getElementById("mobilecart").style.visibility = "hidden";
+        document.getElementById('li1').style.display = 'none';
+        document.getElementById('socials').style.display = 'none';
+        document.getElementById('li2').style.display = 'none';
+        document.getElementById('li3').style.display = 'none';
+        document.getElementById('desktopcart').style.display = 'none';
+    }
+    else {
+        document.getElementById('navicon').style.visibility = 'hidden';
+        document.getElementById('naviconcontainer').style.visibility = 'hidden';
+        document.getElementById('li1').style.display = 'block';
+        document.getElementById('li2').style.display = 'block';
+        document.getElementById('li3').style.display = 'block';
+        document.getElementById('socials').style.display = 'block';
+    }
+}
+
+window.onresize = shiftcart;
 
 
 window.mobileCheck = function() {
@@ -115,7 +155,6 @@ window.addEventListener('load', function () {
     else {
         console.log("Desktop Browser Detected");
         document.getElementById('navicon').style.visibility = 'hidden';
-        document.getElementById('naviconcontainer').innerHTML = "";
         document.getElementById('naviconcontainer').style.visibility = 'hidden';
         document.getElementById('li1').style.display = 'block';
         document.getElementById('li2').style.display = 'block';
@@ -202,6 +241,13 @@ async function findBuyLimit(itemId) {
     return blimit;
 }
 
+async function updateItem(itemId, quan) {
+    const container = document.getElementById('cartitems');
+    const chosencard = document.getElementById(itemId.toString())
+    chosencard.getElementsByClassName("card-date")[0].innerHTML = `<div onclick="removeFromCart(${itemId})" class="addremovebuttons">-</div> ${quan} <div onclick="increaseItemCount(String(${itemId}))" class="addremovebuttons">+</div>`;
+
+}
+
 async function refreshCart() {
     console.log("Refreshing cart");
     const container = document.getElementById('cartitems');
@@ -224,6 +270,7 @@ async function refreshCart() {
             if (detectMob() == true) {
                 card.className = 'itemcardmobile';
             }
+            card.id = item.id;
             let quantity = 0;
             console.log(cartlist);
             for (let cartlistitem of cartlist) {
@@ -248,6 +295,7 @@ async function refreshCart() {
         </div>
       `;
             container.appendChild(card);
+
         }
     });
     if (totalprice <= 0) {
@@ -297,18 +345,11 @@ checkoutbutton.addEventListener('mouseleave', () => {
 
 
 
-fetch('https://script.google.com/macros/s/AKfycby_kNV5TcyariT0DLxR6ImiR4yuTSWh_knXHLz8xb0yDUNnT6cvoFULyk3Ph0Ye1Ylo/exec')
-    .then(response => response.json())
-    .then(data => {
-        console.log('Loaded announcements:', data);
-        renderAnnouncements(data);
-    })
-    .catch(error => {
-        console.error('Error fetching announcements:', error);
-    });
+
 
 function renderAnnouncements(data) {
     const container = document.getElementById('announcementContainer');
+    container.innerHTML = '';
     const maxCards = 3;
 
     const announcements = data.slice(0, maxCards);
@@ -385,30 +426,46 @@ async function checkForId(id) {
 }
 
 
-async function addToCart(itemId) {
-    let found = await checkForId(itemId);
-    console.log("FOUND "+found);
-    console.log(found === undefined);
-    if (found === false) return;
-    let cart = JSON.parse(localStorage.getItem(key)) || [];
-    let itemquantity = 0;
-    for (let cartlistitem of cart) {
-        if(String(itemId) === cartlistitem) {
-            itemquantity++;
-        }
+const idCache = new Map();
+const limitCache = new Map();
+
+async function increaseItemCount(itemId) {
+    const cart = JSON.parse(localStorage.getItem(key)) || [];
+    let itemQuantity = 0;
+    for (const id of cart) {
+        if (id === itemId) itemQuantity++;
     }
-    console.log(await findBuyLimit(itemId));
-    if (parseInt(itemquantity) >= parseInt(await findBuyLimit(itemId))) {
+
+    let buyLimit = limitCache.has(itemId) ? limitCache.get(itemId) : parseInt(await findBuyLimit(itemId));
+    cart.push(itemId);
+    localStorage.setItem(key, JSON.stringify(cart));
+    updateItem(itemId, itemQuantity);
+}
+
+async function addToCart(itemId) {
+    let found = idCache.has(itemId) ? idCache.get(itemId) : await checkForId(itemId);
+    idCache.set(itemId, found);
+    if (!found) return;
+
+    const cart = JSON.parse(localStorage.getItem(key)) || [];
+    let itemQuantity = 0;
+    for (const id of cart) {
+        if (id === itemId) itemQuantity++;
+    }
+
+    let buyLimit = limitCache.has(itemId) ? limitCache.get(itemId) : parseInt(await findBuyLimit(itemId));
+    limitCache.set(itemId, buyLimit);
+
+    if (itemQuantity >= buyLimit) {
         console.log("Buy limit reached, item not added to cart");
         return;
     }
+
     cart.push(itemId);
-    console.log("CART "+cart);
     localStorage.setItem(key, JSON.stringify(cart));
-    console.log("Updated Cart:", JSON.parse(localStorage.getItem(key)));
-    console.log("Item ID: " + itemId + " has been added to cart");
-    refreshCart();
+    requestAnimationFrame(refreshCart);
 }
+
 function getCart() {
     let cart = JSON.parse(localStorage.getItem(key)) || [];
     return cart;
@@ -476,6 +533,30 @@ async function goToCheckout() {
     });
 }
 
+function yearbookSub() {
+    const stripe = Stripe('pk_test_51RS08CP6GvQdglTMipB2KfsejzM9nL6hkgRYhon4PFsxIiBjJ2PSjJSeLZDqEHlGcGj7REAP0zlGYH5zCAfe01fx00lrFFDVvo');
+    stripe.redirectToCheckout({
+        lineItems: [{price: "price_1RSP6RP6GvQdglTMzE9cUO5F", quantity: 1}],
+        mode: 'subscription',
+        successUrl: 'https://gurt.lol/thankyou',
+        cancelUrl: 'https://gurt.lol',
+    });
+}
+
+function submitItemWithID() {
+    console.log(document.getElementById("itemidtextbox").value.toString());
+    addToCart(document.getElementById("itemidtextbox").value.toString());
+}
+
+fetch('https://script.google.com/macros/s/AKfycbwg9zQyKWJ-D_9zeIfv152xYcJSZCjya9yOmPo2A7C2iBcG3H-HNEtJQxylVihF-yPT/exec')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Loaded announcements:', data);
+        renderAnnouncements(data);
+    })
+    .catch(error => {
+        console.error('Error fetching announcements:', error);
+    });
 
 
 

@@ -31,6 +31,17 @@
       "buylimit": "12",
       "disclaimer": "This item is limited stock",
       "price_id": "price_1RS0EmP6GvQdglTMIoMzF0p7"
+    },
+    {
+      "id": "09876",
+      "name": "Yearbook Subscription",
+      "imageurl": "https://www.spc-yearbooks.co.uk/wp-content/uploads/2024/09/yearbooks-home-hero.png",
+      "canpurchase": "false",
+      "description": "Yearly subscription for the yearbook!",
+      "price": "75.00 \uD83D\uDD04",
+      "buylimit": "1",
+      "disclaimer": "This item is a yearly subscription",
+      "price_id": "price_1RSP6RP6GvQdglTMzE9cUO5F"
     }
   ]
 }

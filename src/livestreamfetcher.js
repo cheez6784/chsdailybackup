@@ -70,17 +70,16 @@ async function showLatestCompletedLivestream() {
         const last5streams = await fetchLastLives(videoIds);
         console.log("Fetched 5 latest streams")
         console.log(last5streams);
-        document.getElementById("vid1").innerHTML = innerHTML = `<iframe width="660" height="415" src="https://www.youtube.com/embed/${last5streams[0].id}" frameborder="0" allowfullscreen style="border-radius: 20px; margin: auto; align-content: center;" loading="lazy"></iframe>`;
-        document.getElementById("vid2").innerHTML = innerHTML = `<iframe width="660" height="415" src="https://www.youtube.com/embed/${last5streams[1].id}" frameborder="0" allowfullscreen style="border-radius: 20px; margin: auto; align-content: center;" loading="lazy"></iframe>`;
-        document.getElementById("vid3").innerHTML = innerHTML = `<iframe width="660" height="415" src="https://www.youtube.com/embed/${last5streams[2].id}" frameborder="0" allowfullscreen style="border-radius: 20px; margin: auto; align-content: center;" loading="lazy"></iframe>`;
-        document.getElementById("vid4").innerHTML = innerHTML = `<iframe width="660" height="415" src="https://www.youtube.com/embed/${last5streams[3].id}" frameborder="0" allowfullscreen style="border-radius: 20px; margin: auto; align-content: center;" loading="lazy"></iframe>`;
-        document.getElementById("vid5").innerHTML = innerHTML = `<iframe width="660" height="415" src="https://www.youtube.com/embed/${last5streams[4].id}" frameborder="0" allowfullscreen style="border-radius: 20px; margin: auto; align-content: center;" loading="lazy"></iframe>`;
+        document.getElementById("vid1").innerHTML = `<lite-youtube width="660" height="415" videoid="${last5streams[0].id}" title="${last5streams[0]["snippet"]['title'].toString()}" style="border-radius: 20px; margin: auto; align-content: center; height: 415px; width: 660px;"></lite-youtube>`;
+        document.getElementById("vid2").innerHTML = `<lite-youtube width="660" height="415" videoid="${last5streams[1].id}" title="${last5streams[1]["snippet"]['title'].toString()}" style="border-radius: 20px; margin: auto; align-content: center; height: 415px; width: 660px;"></lite-youtube>`;
+        document.getElementById("vid3").innerHTML = `<lite-youtube width="660" height="415" videoid="${last5streams[2].id}" title="${last5streams[2]["snippet"]['title'].toString()}" style="border-radius: 20px; margin: auto; align-content: center; height: 415px; width: 660px;"></lite-youtube>`;
+        document.getElementById("vid4").innerHTML = `<lite-youtube width="660" height="415" videoid="${last5streams[3].id}" title="${last5streams[3]["snippet"]['title'].toString()}" style="border-radius: 20px; margin: auto; align-content: center; height: 415px; width: 660px;"></lite-youtube>`;
+        document.getElementById("vid5").innerHTML = `<lite-youtube width="660" height="415" videoid="${last5streams[4].id}" title="${last5streams[4]["snippet"]['title'].toString()}" style="border-radius: 20px; margin: auto; align-content: center; height: 415px; width: 660px;"></lite-youtube>`;
         if (latestStream) {
             const videoId = latestStream.id;
             const title = latestStream.snippet.title;
             document.getElementById('livestreamembed').innerHTML = `
-            <iframe width="660" height="415" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="border-radius: 20px; margin: auto; align-content: center;" loading="lazy"></iframe>
-          `;
+            <lite-youtube width="660" height="415" videoid="${videoId}" title="${latestStream["snippet"]['title'].toString()}" style="border-radius: 20px; margin: auto; align-content: center; height: 415px; width: 660px;"></lite-youtube>`;
         } else {
             document.getElementById('livestreamembed').innerText = 'No completed livestreams found.';
         }
