@@ -27,6 +27,7 @@ fetch(url)
             console.log("Assigning event to elements");
             console.log(div);
             console.log(container);
+            container.innerHTML = ``;
             container.innerHTML = div.textContent;
             container2.innerHTML = div.textContent;
         });

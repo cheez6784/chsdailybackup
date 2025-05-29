@@ -347,6 +347,8 @@ checkoutbutton.addEventListener('mouseleave', () => {
 
 
 
+
+
 function renderAnnouncements(data) {
     const container = document.getElementById('announcementContainer');
     container.innerHTML = '';
@@ -464,12 +466,14 @@ async function addToCart(itemId) {
     cart.push(itemId);
     localStorage.setItem(key, JSON.stringify(cart));
     requestAnimationFrame(refreshCart);
+    QuantityBannerUpdate();
 }
 
 function getCart() {
     let cart = JSON.parse(localStorage.getItem(key)) || [];
     return cart;
 }
+
 function clearCart() {
     localStorage.removeItem(key);
 }
@@ -487,6 +491,7 @@ function removeFromCart(itemId) {
     localStorage.setItem(key, JSON.stringify(cart));
     console.log("New cart " + JSON.stringify(cart));
     refreshCart();
+    QuantityBannerUpdate();
 }
 
 
@@ -557,6 +562,16 @@ fetch('https://script.google.com/macros/s/AKfycbwg9zQyKWJ-D_9zeIfv152xYcJSZCjya9
     .catch(error => {
         console.error('Error fetching announcements:', error);
     });
+
+
+function QuantityBannerUpdate() {
+    const banner = document.getElementById("quantitybanner");
+    const crt = getCart();
+    const crtitems = [...new Set(crt)];
+    banner.innerHTML = crtitems.length.toString();
+}
+
+QuantityBannerUpdate();
 
 
 

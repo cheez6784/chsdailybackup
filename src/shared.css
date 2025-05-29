@@ -96,12 +96,31 @@
 }
 
 .closebtn {
-    padding-left: 30px;
+    font-size: 40px;
     background-color: transparent;
     border: none;
     color: white;
+    top: 20px;
+    right: 45px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
 }
 
+.closebtn img {
+    width: 60%;
+    height: 60%;
+    top: 0;
+    right: 0;
+    margin: auto;
+    transform: translate(25%, 25%);
+}
+.cbt {
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+}
 .closebtnCart {
     padding-left: 30px;
     background-color: transparent;
@@ -131,6 +150,19 @@
     background-color: transparent;
     border: none;
     right: 5%;
+    position: relative;
+    display: inline-block;
+}
+.quantitybanner {
+    position: absolute;
+    top: 10px;
+    text-shadow: none;
+    right: 35px;
+    color: white;
+    background: red;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 17px;
 }
 .naviconcontainer {
     height: 20%;
@@ -263,7 +295,7 @@
     color: white;
     cursor: pointer;
     top: 0;
-    right: 6%;
+    left: 1%;
 }
 
 .closeframe:hover {
