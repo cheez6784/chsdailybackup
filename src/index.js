@@ -56,11 +56,12 @@ function detectMobScreenSize2() {
 
 
 function shiftcart() {
+    if (detectMob()) {return;}
     if (detectMobScreenSize() && !detectMob()) {
        document.getElementById("altdesktopcart").style.display = 'block';
         document.getElementById("desktopcart").style.display = 'none';
     }
-    else {
+    else if(!detectMob()) {
         document.getElementById("altdesktopcart").style.display = 'none';
         document.getElementById("desktopcart").style.display = 'block';
     }
@@ -79,7 +80,7 @@ function shiftcart() {
         document.getElementById('li3').style.display = 'none';
         document.getElementById('desktopcart').style.display = 'none';
     }
-    else {
+    else if (!detectMob()) {
         document.getElementById('navicon').style.visibility = 'hidden';
         document.getElementById('naviconcontainer').style.visibility = 'hidden';
         document.getElementById('li1').style.display = 'block';
@@ -566,9 +567,11 @@ fetch('https://script.google.com/macros/s/AKfycbwg9zQyKWJ-D_9zeIfv152xYcJSZCjya9
 
 function QuantityBannerUpdate() {
     const banner = document.getElementById("quantitybanner");
+    const banner2 = document.getElementById("quantitybanner2");
     const crt = getCart();
     const crtitems = [...new Set(crt)];
     banner.innerHTML = crtitems.length.toString();
+    banner2.innerHTML = crtitems.length.toString();
 }
 
 QuantityBannerUpdate();
