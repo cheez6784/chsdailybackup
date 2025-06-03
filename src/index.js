@@ -90,7 +90,17 @@ function shiftcart() {
     }
 }
 
-window.onresize = shiftcart;
+function shiftSlideshowText() {
+    const slideshowinfocont = document.getElementById('slideinfo');
+    const slideshowinfocont2 = document.getElementById('slideinfo2');
+    const slideshowinfocont3 = document.getElementById('slideinfo3');
+    slideshowinfocont.style.fontSize = slideshowinfocont.fontSize * (window.innerWidth / 1000);
+    slideshowinfocont2.style.fontSize = slideshowinfocont2.fontSize * (window.innerWidth / 1000);
+    slideshowinfocont3.style.fontSize = slideshowinfocont3.fontSize * (window.innerWidth / 1000);
+}
+
+window.onresize = shiftcart, shiftSlideshowText;
+
 
 
 window.mobileCheck = function() {
@@ -150,8 +160,8 @@ window.addEventListener('load', function () {
         document.getElementById('fullscrrenbutton').style.display = 'none';
         document.getElementById('desktopcart').style.display = 'none';
         document.getElementById('mobilecart').style.display = 'block';
-        document.getElementById('checkoutbutton').style.scale = "2.5";
-        document.getElementById('checkoutbutton').style.transform = "translate(9%, -50%)";
+        document.getElementById('checkoutbutton').style.scale = "1.7";
+        document.getElementById('checkoutbutton').style.transform = "translate(0%, -50%)";
     }
     else {
         console.log("Desktop Browser Detected");
